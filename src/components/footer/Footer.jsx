@@ -5,7 +5,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <div className={styles.container}>
-      <div>All rights reserved</div>
+      <div>@2023 All rights reserved</div>
       <div>
         <Image src="" alt="My website" />
       </div>
