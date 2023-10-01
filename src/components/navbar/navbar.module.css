@@ -1,0 +1,33 @@
+.container {
+  height: 100px;
+  display: flex;
+  justify-content: space-between;
+
+  align-items: center;
+}
+
+@media only screen and (max-width: 800px) {
+  .container {
+    flex-direction: column;
+  }
+}
+
+.logo {
+  font-weight: bold;
+  font-size: large;
+}
+
+.links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.logout {
+  padding: 5px;
+  border: none;
+  background-color: #53c28b;
+  color: white;
+  cursor: pointer;
+  border-radius: 3px;
+}
