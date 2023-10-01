@@ -1,3 +1,1 @@
 # fullstack-next.js
-
-# ffffff
