@@ -4,3 +4,14 @@
   align-items: center;
   justify-content: space-between;
 }
+
+.social {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.icon {
+  border-radius: 100%;
+  opacity: 70%;
+}
