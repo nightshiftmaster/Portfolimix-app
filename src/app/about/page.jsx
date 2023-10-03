@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
+import Button from "@/components/button/Button";
 
 const About = () => {
   return (
@@ -17,10 +18,10 @@ const About = () => {
           <h2 className={styles.imgDescript}>Web development & Web design</h2>
         </div>
       </div>
-      <div className={styles.textBlock}>
+      <div className={styles.textContainer}>
         <div className={styles.textItem}>
           <h1 className={styles.title}>Who Are We?</h1>
-          <p className={styles.paragraph}>
+          <p className={styles.desc}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
             quae dolor, optio voluptatibus magnam iure esse tempora beatae. A
             suscipit eos. Animi quibusdam cum omnis officiis voluptatum quo ea
@@ -37,7 +38,7 @@ const About = () => {
         </div>
         <div className={styles.textItem}>
           <h1 className={styles.title}>Who We Do?</h1>
-          <p>
+          <p className={styles.desc}>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus
             quae dolor, optio voluptatibus magnam iure esse tempora beatae, a
             suscipit eos. Animi quibusdam cum omnis officiis voluptatum quo ea
@@ -50,6 +51,7 @@ const About = () => {
             <br />
             <br /> - Mobile Apps
           </p>
+          <Button text="Contact us" url="contact" />
         </div>
       </div>
     </div>
