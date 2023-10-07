@@ -19,12 +19,11 @@ a {
 }
 
 .container {
-  max-width: 1366px;
+  max-width: 70vw;
   min-height: 100vh;
   margin: 0 auto;
   padding: 0 80px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  gap: 20px;
 }

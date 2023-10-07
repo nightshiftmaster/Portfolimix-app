@@ -9,9 +9,10 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "next": "^13.5.5-canary.3",
     "react": "latest",
     "react-dom": "latest",
-    "next": "latest"
+    "swiper": "^10.3.1"
   },
   "devDependencies": {
     "eslint": "latest",
