@@ -1,7 +1,15 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   images: {
-    domains: ["prefacestudios.com", "bookeep.co.il"],
+    domains: [
+      "prefacestudios.com",
+      "bookeep.co.il",
+      "www.pictureframesexpress.co.uk",
+      "assets.bluethumb.com.au",
+      "via.placeholder.com",
+      "i.dummyjson.com",
+      "cdn.pixabay.com",
+    ],
   },
 };
 

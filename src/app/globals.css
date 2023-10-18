@@ -13,6 +13,18 @@ body {
   color: #bbb;
 }
 
+.dark {
+  transition: 1s all ease;
+  background-color: black;
+  color: #bbb;
+}
+
+.light {
+  transition: 1s all ease;
+  background-color: white;
+  color: black;
+}
+
 a {
   text-decoration: none;
   color: inherit;
