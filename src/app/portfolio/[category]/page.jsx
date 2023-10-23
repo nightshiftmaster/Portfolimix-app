@@ -6,13 +6,33 @@ import { items } from "./data";
 import { notFound } from "next/navigation";
 import { GET } from "@/app/api/posts/route";
 
-const getData = (category) => {
-  const data = items[category];
-  return data ?? notFound();
-};
+// const getData = (category) => {
+//   const data = items[category];
+//   return data ?? notFound();
+// };
 
-const Category = ({ params }) => {
-  const data = getData(params.category);
+async function getData(category) {
+  const res = await fetch(`http://localhost:3000/api/works/${category}`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    return notFound();
+  }
+
+  return res.json();
+}
+
+export async function generateMetadata({ params }) {
+  const post = await getData(params.category);
+  return {
+    title: post.title,
+    description: post.desc,
+  };
+}
+
+const Category = async ({ params }) => {
+  const data = await getData(params.category);
   return (
     <div className={styles.container}>
       <h1 className={styles.categoryTitle}>{params.category}</h1>
@@ -31,7 +51,7 @@ const Category = ({ params }) => {
                 // width={300}
                 className={styles.img}
                 alt=""
-                src={item.image}
+                src={item.img}
               />
             </div>
           </div>

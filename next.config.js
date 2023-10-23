@@ -9,6 +9,7 @@ const nextConfig = {
       "via.placeholder.com",
       "i.dummyjson.com",
       "cdn.pixabay.com",
+      "ichef.bbci.co.uk",
     ],
   },
 };

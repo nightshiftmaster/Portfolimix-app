@@ -2,20 +2,37 @@ import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 
-const Portfolio = () => {
+// async function getData() {
+//   const res = await fetch(`http://localhost:3000/api/works`, {
+//     cache: "no-store",
+//   });
+
+//   if (!res.ok) {
+//     return notFound();
+//   }
+
+//   return res.json();
+// }
+
+export const metadata = {
+  title: "Portfolio",
+  description: "This is Portfolio page",
+};
+
+const pages = ["illustrations", "websites", "applications"];
+
+const Portfolio = async () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.selectTitle}>Choose a galery</h1>
       <div className={styles.items}>
-        <Link href="portfolio/illustrations" className={styles.item}>
-          <span className={styles.title}>Illuatrations</span>
-        </Link>
-        <Link href="portfolio/websites" className={styles.item}>
-          <span className={styles.title}>Websites</span>
-        </Link>
-        <Link href="portfolio/application" className={styles.item}>
-          <span className={styles.title}>Application</span>
-        </Link>
+        {pages.map((page) => {
+          return (
+            <Link href={`portfolio/${page}`} className={styles.item}>
+              <span className={styles.title}>{page}</span>
+            </Link>
+          );
+        })}
       </div>
     </div>
   );

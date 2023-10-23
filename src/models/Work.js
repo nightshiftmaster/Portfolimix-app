@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 import { Schema } from "mongoose";
 
-const postSchema = new Schema(
+const workSchema = new Schema(
   {
     title: {
       type: String,
@@ -15,16 +15,8 @@ const postSchema = new Schema(
       type: String,
       required: true,
     },
-    content: {
-      type: String,
-      required: true,
-    },
-    username: {
-      type: String,
-      required: true,
-    },
   },
   { timestamps: true }
 );
 
-export default mongoose.models.Post || mongoose.model("Post", postSchema);
+export default mongoose.models.Work || mongoose.model("Work", workSchema);
