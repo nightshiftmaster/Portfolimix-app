@@ -8,7 +8,7 @@ const Login = () => {
   return (
     <div className={styles.container}>
       <input type="text" />
-      <button onClick={() => signIn("google")}>"Login with Google"</button>
+      <button onClick={() => signIn("google")}>Login with Google</button>
     </div>
   );
 };

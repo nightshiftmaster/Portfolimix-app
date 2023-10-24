@@ -7,16 +7,20 @@ import { useSession } from "next-auth/react";
 const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
 const Dashboard = () => {
-  const session = useSession();
+  const { data: session, status } = useSession();
+
   console.log(session);
   // const { data, error, isLoading } = useSWR(
   //   "https://jsonplaceholder.typicode.com/posts",
   //   fetcher
   // );
   // if (error) return <div>failed to load</div>;
-  // if (isLoading) return <div>loading...</div>;
-  // console.log(data);
-  // return <div className={styles.container}>Dashboard</div>;
+  if (status === "loading") {
+    return <div>loading...</div>;
+  }
+  if (status === "authenticated") {
+    return <div className={styles.container}>Dashboard</div>;
+  }
 };
 
 export default Dashboard;
