@@ -6,6 +6,7 @@ import Button from "@/components/Button/Button";
 const About = () => {
   return (
     <div className={styles.container}>
+      <h1 className={styles.mainTitle}>About Us</h1>
       <div className={styles.imgContainer}>
         <Image
           fill={true}

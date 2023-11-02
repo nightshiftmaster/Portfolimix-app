@@ -11,7 +11,9 @@ export const metadata = {
 const Contacts = () => {
   return (
     <div className={styles.container}>
-      <h1 className={styles.title}>Let's Keep in Touch</h1>
+      <div className={styles.titleContainer}>
+        <h1 className={styles.title}>Let's Keep in Touch</h1>
+      </div>
       <div className={styles.content}>
         <div className={styles.imageContainer}>
           <Image

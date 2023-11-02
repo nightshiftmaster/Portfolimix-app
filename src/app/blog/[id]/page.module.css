@@ -2,6 +2,7 @@
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+
   gap: 50px;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -78,6 +79,8 @@
   .head {
     display: block;
     flex-direction: column;
+    text-align: center;
+    width: 300px;
   }
 
   .imageContainer {
@@ -85,7 +88,11 @@
   }
 
   .container {
-    margin-top: 120px;
+    margin-top: 85px;
+    gap: 30px;
+    align-items: center;
+    /* justify-items: center;
+    align-content: center; */
   }
 
   .article {

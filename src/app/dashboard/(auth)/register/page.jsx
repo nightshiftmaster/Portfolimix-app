@@ -10,6 +10,7 @@ import { useRouter } from "next/navigation";
 const Register = () => {
   const [err, setErr] = useState("");
   const router = useRouter();
+
   const handleSubmit = async (e) => {
     e.preventDefault();
     const name = e.target[0].value;
@@ -33,6 +34,9 @@ const Register = () => {
 
   return (
     <div className={styles.container}>
+      <div className={styles.titleContainer}>
+        <h2>Create your account</h2>
+      </div>
       <form className={styles.form} onSubmit={handleSubmit}>
         <input
           type="username"

@@ -1,5 +1,6 @@
 .container {
   display: flex;
+
   align-items: center;
   gap: 100px;
 }
@@ -34,17 +35,39 @@
 .swiper {
   border-radius: 50px;
   width: 40vw;
-  height: 70vh;
-  margin-top: -70px;
+  height: 80vh;
+  margin-top: -50px;
 }
 
 @media only screen and (max-width: 1400px) {
   .container {
     flex-direction: column-reverse;
+    align-items: center;
     margin-top: 200px;
+    gap: 50px;
+  }
+
+  .title {
+    /* order: 1; */
+    text-align: center;
+    font-size: 50px;
   }
   .swiper {
-    width: 60vw;
-    height: 30vh;
+    /* order: 2; */
+    width: 70vw;
+    height: 35vh;
+    margin-top: -10px;
+  }
+  /* .item {
+    order: 1;
+  } */
+  .desc {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 200;
+  }
+
+  .button {
+    margin: auto;
   }
 }

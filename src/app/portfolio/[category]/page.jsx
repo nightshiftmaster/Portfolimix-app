@@ -35,28 +35,31 @@ const Category = async ({ params }) => {
   const data = await getData(params.category);
   return (
     <div className={styles.container}>
-      <h1 className={styles.categoryTitle}>{params.category}</h1>
-
-      {data.map((item) => {
-        return (
-          <div className={styles.item} key={item.id}>
-            <div className={styles.content}>
-              <h1 className={styles.title}>{item.title}</h1>
-              <p className={styles.desc}>{item.desc}</p>
-              <Button text="See More" url="#" />
+      <div className={styles.categoryTitleContainer}>
+        <h1 className={styles.categoryTitle}>{params.category}</h1>
+      </div>
+      <div className={styles.items}>
+        {data.map((item) => {
+          return (
+            <div className={styles.item} key={item.id}>
+              <div className={styles.content}>
+                <h1 className={styles.title}>{item.title}</h1>
+                <p className={styles.desc}>{item.desc}</p>
+                <Button text="See More" url="#" />
+              </div>
+              <div className={styles.imageContainer}>
+                <img
+                  // height={300}
+                  // width={300}
+                  className={styles.img}
+                  alt=""
+                  src={item.img}
+                />
+              </div>
             </div>
-            <div className={styles.imageContainer}>
-              <img
-                // height={300}
-                // width={300}
-                className={styles.img}
-                alt=""
-                src={item.img}
-              />
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
     </div>
   );
 };

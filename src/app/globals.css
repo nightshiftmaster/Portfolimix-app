@@ -9,13 +9,12 @@ body {
   max-width: 100vw;
   max-height: 100vh;
   overflow-x: hidden;
-  background-color: black;
   color: #bbb;
 }
 
 .dark {
   transition: 1s all ease;
-  background-color: black;
+  background: linear-gradient(170deg, black, rgb(26, 27, 27));
   color: #bbb;
 }
 

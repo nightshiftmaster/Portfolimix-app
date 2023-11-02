@@ -6,7 +6,7 @@ import Image from "next/image";
 const Footer = () => {
   return (
     <div className={styles.container}>
-      <div>@2023 All rights reserved</div>
+      <div className={styles.date}>@2023 All rights reserved</div>
       <div className={styles.social}>
         <Image
           width={20}

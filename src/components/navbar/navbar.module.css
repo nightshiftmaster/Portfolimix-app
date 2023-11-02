@@ -1,24 +1,15 @@
 .container {
-  height: 100px;
+  height: 5vmax;
   display: flex;
   justify-content: space-between;
   gap: 50px;
   align-items: center;
-}
-
-@media only screen and (max-width: 1000px) {
-  .container {
-    flex-direction: column;
-    padding-top: 20px;
-  }
-  .links {
-    width: 400px;
-    flex-wrap: wrap;
-  }
+  margin-bottom: 100px;
 }
 
 .logo {
   font-weight: bold;
+  text-align: center;
   font-size: 30px;
 }
 
@@ -28,6 +19,20 @@
   margin-top: 5px;
   align-items: center;
   gap: 20px;
+}
+
+@media only screen and (max-width: 1400px) {
+  .container {
+    flex-direction: column;
+    padding-top: 20px;
+    margin-bottom: -90px;
+    height: max-content;
+  }
+  .links {
+    width: 40vmax;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
 }
 
 .logout {

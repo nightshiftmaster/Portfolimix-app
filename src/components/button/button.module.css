@@ -8,3 +8,10 @@
   color: white;
   width: max-content;
 }
+
+@media only screen and (max-width: 1400px) {
+  .container {
+    padding: 15px;
+    font-size: 13px;
+  }
+}

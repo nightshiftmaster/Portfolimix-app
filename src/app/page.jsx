@@ -18,10 +18,11 @@ export default function Home() {
           Turning your Idea into Reality. We bring together the teams from the
           global tech industry.
         </p>
-        <Button text="See my works" url="portfolio" />
+        <div className={styles.button}>
+          <Button text="See my works" url="portfolio" />
+        </div>
       </div>
-      {/* <div className={styles.swiper}> */}
-      <>
+      <div className={styles.swiper}>
         <Swiper
           pagination={true}
           modules={[Autoplay, Pagination]}
@@ -96,8 +97,7 @@ export default function Home() {
             />
           </SwiperSlide>
         </Swiper>
-      </>
-      {/* </div> */}
+      </div>
     </div>
   );
 }
