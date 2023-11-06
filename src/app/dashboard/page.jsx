@@ -6,14 +6,15 @@ import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import Image from "next/image";
-import * as yup from "yup";
-import { IoMdAlert } from "react-icons/io";
+import * as Yup from "yup";
+import { Input, TextArea } from "@/components/Input/Input";
+import { Formik, Form } from "formik";
 
-let userSchema = yup.object({
-  title: yup.string().required(),
-  desc: yup.string().required(),
-  img: yup.string().required(),
-  content: yup.string().required(),
+const NewPostSchema = Yup.object({
+  title: Yup.string().required(),
+  desc: Yup.string().required(),
+  img: Yup.string().required(),
+  content: Yup.string().required(),
 });
 
 const Dashboard = () => {
@@ -22,17 +23,11 @@ const Dashboard = () => {
   const formRef = useRef(null);
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
 
-  const [errors, setErrors] = useState({
-    title: "",
-    desc: "",
-    img: "",
-    content: "",
-  });
-
   const { data, mutate, error, isLoading } = useSWR(
     `/api/posts?username=${session?.data?.user.name}`,
     fetcher
   );
+
   const handleDelete = async (id) => {
     try {
       await fetch(`http://localhost:3000/api/posts/${id}`, {
@@ -41,45 +36,6 @@ const Dashboard = () => {
       mutate();
     } catch (e) {
       console.log(e);
-    }
-  };
-
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const title = e.target[0].value;
-    const desc = e.target[1].value;
-    const img = e.target[2].value;
-    const content = e.target[3].value;
-
-    try {
-      await userSchema.validate(
-        { title, desc, img, content },
-        { abortEarly: false }
-      );
-      formRef.current.reset();
-    } catch (e) {
-      const newErr = {};
-      e.inner.forEach((err) => (newErr[err.path] = err.message + "!"));
-      setErrors(newErr);
-    }
-
-    try {
-      await fetch("/api/posts", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          title,
-          desc,
-          img,
-          content,
-          username: session?.data.user.name,
-        }),
-      });
-      mutate();
-    } catch (e) {
-      console.log(e.message);
     }
   };
 
@@ -92,6 +48,62 @@ const Dashboard = () => {
   if (session.status === "authenticated") {
     return (
       <div className={styles.container}>
+        <Formik
+          initialValues={{
+            title: "",
+            desc: "",
+            img: "",
+            content: "",
+          }}
+          validationSchema={NewPostSchema}
+          onSubmit={async ({ title, desc, img, content }) => {
+            try {
+              await fetch("/api/posts", {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  title,
+                  desc,
+                  img,
+                  content,
+                  username: session?.data.user.name,
+                }),
+              });
+              mutate();
+              formRef.current.reset();
+            } catch (e) {
+              console.log(e.message);
+            }
+          }}
+        >
+          {({ values, errors, touched }) => {
+            return (
+              <Form ref={formRef} className={styles.newpost}>
+                <h1 className={styles.title}>Add New Post</h1>
+                {Object.keys(values)
+                  .slice(0, 3)
+                  .map((input, i) => {
+                    return (
+                      <Input
+                        key={i}
+                        name={input}
+                        touched={touched[input]}
+                        errors={errors[input]}
+                      />
+                    );
+                  })}
+                <TextArea
+                  name="content"
+                  touched={touched.content}
+                  errors={errors.content}
+                />
+                <button className={styles.button}>Send</button>
+              </Form>
+            );
+          }}
+        </Formik>
         <div className={styles.posts}>
           <h1 className={styles.title}>My Posts</h1>
           {isLoading
@@ -119,90 +131,6 @@ const Dashboard = () => {
                 );
               })}
         </div>
-        <form ref={formRef} className={styles.newpost} onSubmit={handleSubmit}>
-          <h1 className={styles.title}>Add New Post</h1>
-          <>
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                placeholder="Title"
-                style={{ outline: errors?.title ? "2px solid red" : "none" }}
-                className={styles.input}
-                onFocus={() =>
-                  setErrors((curr) => {
-                    curr.title = "";
-                    return { ...curr };
-                  })
-                }
-              />
-              <IoMdAlert
-                className={styles.alerticon}
-                display={errors?.title ? "block" : "none"}
-              />
-            </div>
-            <div className={styles.invalidfeedback}>{errors?.title}</div>
-          </>
-          <>
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                placeholder="Desc"
-                className={styles.input}
-                style={{ outline: errors?.desc ? "2px solid red" : "none" }}
-                onFocus={() =>
-                  setErrors((curr) => {
-                    curr.desc = "";
-                    return { ...curr };
-                  })
-                }
-              />
-              <IoMdAlert
-                className={styles.alerticon}
-                display={errors?.desc ? "block" : "none"}
-              />
-            </div>
-            <div className={styles.invalidfeedback}>{errors?.desc}</div>
-          </>
-          <>
-            <div className={styles.inputContainer}>
-              <input
-                type="text"
-                placeholder="Image"
-                className={styles.input}
-                style={{ outline: errors?.img ? "2px solid red" : "none" }}
-                onFocus={() =>
-                  setErrors((curr) => {
-                    curr.img = "";
-                    return { ...curr };
-                  })
-                }
-              />
-              <IoMdAlert
-                className={styles.alerticon}
-                display={errors?.img ? "block" : "none"}
-              />
-            </div>
-            <div className={styles.invalidfeedback}>{errors?.img}</div>
-          </>
-          <>
-            <textarea
-              className={styles.textarea}
-              placeholder="Content"
-              style={{ outline: errors?.content ? "2px solid red" : "none" }}
-              onFocus={() =>
-                setErrors((curr) => {
-                  curr.content = "";
-                  return { ...curr };
-                })
-              }
-              id=""
-              cols="30"
-              rows="10"
-            ></textarea>
-            <div className={styles.invalidfeedback}>{errors?.content}</div>
-          </>
-          <button className={styles.button}>Send</button>
-        </form>
       </div>
     );
   }

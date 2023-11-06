@@ -26,7 +26,7 @@ const handler = NextAuth({
             if (isPasswordCorrect) {
               return user;
             } else {
-              throw new Error("Wrong passwors");
+              throw new Error("Wrong password");
             }
           } else {
             throw new Error("User not found");

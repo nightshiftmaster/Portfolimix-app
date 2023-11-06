@@ -45,7 +45,6 @@ const Category = async ({ params }) => {
               <div className={styles.content}>
                 <h1 className={styles.title}>{item.title}</h1>
                 <p className={styles.desc}>{item.desc}</p>
-                <Button text="See More" url="#" />
               </div>
               <div className={styles.imageContainer}>
                 <img

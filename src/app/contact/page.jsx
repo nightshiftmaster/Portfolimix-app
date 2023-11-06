@@ -1,19 +1,54 @@
+"use client";
 import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
-import Button from "@/components/button/Button";
+import { useState } from "react";
+import { useRef } from "react";
 
-export const metadata = {
-  title: "Contact Information",
-  description: "This is contact page",
-};
+// export const metadata = {
+//   title: "Contact Information",
+//   description: "This is contact page",
+// };
 
 const Contacts = () => {
+  const [sucess, setSucess] = useState("");
+  const [errors, setError] = useState("");
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    message: "",
+  });
+  const formRef = useRef(null);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    try {
+      const response = await fetch("/api/email", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        setSucess("Email sent successfully!");
+        formRef.current.reset();
+      } else {
+        setError("Email sending failed. Please try again later.");
+      }
+    } catch (error) {
+      setError("An error occurred. Please try again later.");
+    }
+  };
+
   return (
     <div className={styles.container}>
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Let's Keep in Touch</h1>
       </div>
+      <h3 className={styles.sucessFeedback}>{sucess ? sucess : null}</h3>
       <div className={styles.content}>
         <div className={styles.imageContainer}>
           <Image
@@ -23,9 +58,21 @@ const Contacts = () => {
             alt="contact image"
           />
         </div>
-        <form className={styles.form}>
-          <input type="text" placeholder="name" className={styles.input} />
-          <input type="text" placeholder="email" className={styles.input} />
+        <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
+          <input
+            type="text"
+            placeholder="name"
+            className={styles.input}
+            onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+          />
+          <input
+            type="text"
+            placeholder="email"
+            className={styles.input}
+            onChange={(e) =>
+              setFormData({ ...formData, email: e.target.value })
+            }
+          />
           <textarea
             className={styles.textArea}
             name=""
@@ -33,8 +80,11 @@ const Contacts = () => {
             cols="30"
             rows="10"
             placeholder="message"
-          ></textarea>
-          <Button text="Send Message" url="" />
+            onChange={(e) =>
+              setFormData({ ...formData, message: e.target.value })
+            }
+          />
+          <button className={styles.button}>Send Message</button>
         </form>
       </div>
     </div>

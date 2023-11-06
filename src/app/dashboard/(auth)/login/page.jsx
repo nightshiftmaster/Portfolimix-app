@@ -7,6 +7,8 @@ import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
+import { Formik, Form } from "formik";
+import { Input } from "@/components/Input/Input";
 
 const Login = () => {
   const session = useSession();
@@ -27,50 +29,51 @@ const Login = () => {
     return <div>...Loading</div>;
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault();
-    const email = e.target[0].value;
-    const password = e.target[1].value;
-    try {
-      signIn("credentials", { email, password });
-    } catch (e) {
-      console.log(e);
-    }
-  };
-
   return (
-    <div className={styles.container}>
-      <div className={styles.titleContainer}>
-        <h1 className={styles.subtitle}>
-          {succes ? "Welcome back" : "Please sign in to see the dashboard"}
-        </h1>
-        <div className={styles.error}> {error && error} </div>
-      </div>
-      <form className={styles.form} onSubmit={handleSubmit}>
-        <input
-          type="email"
-          placeholder="email"
-          className={styles.input}
-          required
-        />
-        <input
-          type="password"
-          placeholder="password"
-          className={styles.input}
-          required
-        />
-        <button className={styles.button}>Login</button>
-      </form>
+    <Formik
+      initialValues={{
+        email: "",
+        password: "",
+      }}
+      onSubmit={async ({ email, password }) => {
+        try {
+          signIn("credentials", { email, password });
+        } catch (e) {
+          console.log(e);
+        }
+      }}
+    >
+      {({ values }) => {
+        return (
+          <div className={styles.container}>
+            <div className={styles.titleContainer}>
+              <h1 className={styles.subtitle}>
+                {succes
+                  ? "Welcome back"
+                  : "Please sign in to see the dashboard"}
+              </h1>
+              <div className={styles.error}> {error && error} </div>
+            </div>
+            <Form className={styles.form}>
+              {Object.keys(values).map((inputName, i) => {
+                return <Input name={inputName} key={i} />;
+              })}
 
-      <button className={styles.button} onClick={() => signIn("google")}>
-        <img src="/google.png" alt="" className={styles.img} />
-        Google
-      </button>
-      <span className={styles.or}>- OR -</span>
-      <Link className={styles.link} href="/dashboard/register">
-        Create new account
-      </Link>
-    </div>
+              <button className={styles.button}>Login</button>
+            </Form>
+
+            <button className={styles.button} onClick={() => signIn("google")}>
+              <img src="/google.png" alt="" className={styles.img} />
+              Google
+            </button>
+            <span className={styles.or}>- OR -</span>
+            <Link className={styles.link} href="/dashboard/register">
+              Create new account
+            </Link>
+          </div>
+        );
+      }}
+    </Formik>
   );
 };
 
