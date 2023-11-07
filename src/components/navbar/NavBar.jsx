@@ -4,6 +4,7 @@ import Link from "next/link";
 import styles from "./navbar.module.css";
 import DarkModeToggle from "../DarkMode/DarkMode";
 import { signOut } from "next-auth/react";
+import { useState } from "react";
 
 const links = [
   { id: 1, title: "Home", url: "/" },
@@ -15,6 +16,7 @@ const links = [
 ];
 
 const Navbar = () => {
+  const [active, setActive] = useState("");
   return (
     <div className={styles.container}>
       <Link href="/" className={styles.logo}>
@@ -25,9 +27,16 @@ const Navbar = () => {
         <DarkModeToggle />
         {links.map((link) => {
           return (
-            <Link href={link.url} className={styles.link} key={link.id}>
-              {link.title}
-            </Link>
+            <div className={styles.link}>
+              <Link
+                key={link.id}
+                href={link.url}
+                className={`${active === link.id ? styles.active : ""}`}
+                onClick={() => setActive(link.id)}
+              >
+                {link.title}
+              </Link>
+            </div>
           );
         })}
         <button className={styles.logout} onClick={signOut}>

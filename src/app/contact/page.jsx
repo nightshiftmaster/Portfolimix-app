@@ -24,6 +24,9 @@ const Contacts = () => {
     e.preventDefault();
 
     try {
+      if (!formData.name) {
+        throw new Error("Please fill the form !");
+      }
       const response = await fetch("/api/email", {
         method: "POST",
         headers: {
@@ -35,11 +38,12 @@ const Contacts = () => {
       if (response.ok) {
         setSucess("Email sent successfully!");
         formRef.current.reset();
+        setError("");
       } else {
         setError("Email sending failed. Please try again later.");
       }
     } catch (error) {
-      setError("An error occurred. Please try again later.");
+      setError(error.message);
     }
   };
 
@@ -48,7 +52,9 @@ const Contacts = () => {
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Let's Keep in Touch</h1>
       </div>
+      <h3 className={styles.errorFeedback}>{errors ? errors : null}</h3>
       <h3 className={styles.sucessFeedback}>{sucess ? sucess : null}</h3>
+
       <div className={styles.content}>
         <div className={styles.imageContainer}>
           <Image

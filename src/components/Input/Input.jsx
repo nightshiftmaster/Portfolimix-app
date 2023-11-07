@@ -10,7 +10,12 @@ export const Input = ({ name, touched = null, errors = null }) => {
         placeholder={name}
         className={styles.input}
         style={{
-          outline: touched && errors ? "2px solid red" : "none",
+          outline:
+            touched && errors
+              ? "2px solid red"
+              : touched
+              ? "2px solid white"
+              : null,
         }}
         required
       />

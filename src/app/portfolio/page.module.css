@@ -34,6 +34,12 @@
   background-size: cover !important;
 }
 
+.item:hover {
+  opacity: 80%;
+
+  outline: 1px solid white;
+}
+
 .item:nth-child(1) {
   background: url("/illustrations.jpeg");
 }

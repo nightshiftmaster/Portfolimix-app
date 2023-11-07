@@ -47,13 +47,7 @@ const Category = async ({ params }) => {
                 <p className={styles.desc}>{item.desc}</p>
               </div>
               <div className={styles.imageContainer}>
-                <img
-                  // height={300}
-                  // width={300}
-                  className={styles.img}
-                  alt=""
-                  src={item.img}
-                />
+                <img className={styles.img} alt="" src={item.img} />
               </div>
             </div>
           );
