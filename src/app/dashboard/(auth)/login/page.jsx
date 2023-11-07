@@ -1,14 +1,13 @@
 "use client";
 import React, { useEffect } from "react";
 import styles from "./page.module.css";
-import Button from "@/components/Button/Button";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import { Formik, Form } from "formik";
-import { Input } from "@/components/Input/Input";
+import { Input } from "../../../../components/Input/Input";
 
 const Login = () => {
   const session = useSession();

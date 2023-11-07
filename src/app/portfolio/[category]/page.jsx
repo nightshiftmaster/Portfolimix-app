@@ -1,15 +1,6 @@
 import React from "react";
 import styles from "./page.module.css";
-import Button from "@/components/Button/Button";
-import Image from "next/image";
-import { items } from "./data";
 import { notFound } from "next/navigation";
-import { GET } from "@/app/api/posts/route";
-
-// const getData = (category) => {
-//   const data = items[category];
-//   return data ?? notFound();
-// };
 
 async function getData(category) {
   const res = await fetch(`http://localhost:3000/api/works/${category}`, {
