@@ -3,7 +3,7 @@ import styles from "./footer.module.css";
 import Image from "next/image";
 // import ReactLogo from "../../../public/1.png";
 
-export default function Footer() {
+const Footer = () => {
   return (
     <div className={styles.container}>
       <div className={styles.date}>@2023 All rights reserved</div>
@@ -32,4 +32,6 @@ export default function Footer() {
       </div>
     </div>
   );
-}
+};
+
+export default Footer;

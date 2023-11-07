@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
 
-async function getData() {
+const getData = async () => {
   const res = await fetch("http://localhost:3000/api/posts", {
     cache: "no-store",
   });
@@ -12,7 +12,7 @@ async function getData() {
     throw new Error("failed to fetch data");
   }
   return res.json();
-}
+};
 
 const Blog = async () => {
   const data = await getData();

@@ -15,7 +15,7 @@ const links = [
   { id: 6, title: "Dashboard", url: "/dashboard" },
 ];
 
-export default function Navbar() {
+const Navbar = () => {
   const [active, setActive] = useState("");
   return (
     <div className={styles.container}>
@@ -44,4 +44,6 @@ export default function Navbar() {
       </div>
     </div>
   );
-}
+};
+
+export default Navbar;
