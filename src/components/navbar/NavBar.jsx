@@ -25,11 +25,10 @@ const Navbar = () => {
 
       <div className={styles.links}>
         <DarkModeToggle />
-        {links.map((link) => {
+        {links.map((link, i) => {
           return (
-            <div className={styles.link}>
+            <div className={styles.link} key={link.id}>
               <Link
-                key={link.id}
                 href={link.url}
                 className={`${active === link.id ? styles.active : ""}`}
                 onClick={() => setActive(link.id)}
