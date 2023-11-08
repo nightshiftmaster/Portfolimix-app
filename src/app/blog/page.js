@@ -4,18 +4,18 @@ import Image from "next/image";
 import Link from "next/link";
 
 const Blog = async () => {
-  const getData = async () => {
-    const res = await fetch("http://8080/api/posts", {
-      cache: "no-store",
-    });
+  // const getData = async () => {
+  //   const res = await fetch("http://localhost:3000/api/posts", {
+  //     cache: "no-store",
+  //   });
 
-    if (!res.ok) {
-      throw new Error("failed to fetch data");
-    }
-    return res.json();
-  };
+  //   if (!res.ok) {
+  //     throw new Error("failed to fetch data");
+  //   }
+  //   return res.json();
+  // };
 
-  const data = await getData();
+  const data = [{}, {}, {}];
 
   return (
     <div className={styles.container}>
