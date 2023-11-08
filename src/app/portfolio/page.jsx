@@ -24,6 +24,7 @@ const Portfolio = async () => {
               rel="preload"
               href={`${BASE_API_URL}/portfolio/${page}`}
               className={styles.item}
+              load="late"
             >
               <span className={styles.title}>{page}</span>
             </Link>
