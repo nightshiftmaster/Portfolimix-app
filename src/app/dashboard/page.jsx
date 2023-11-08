@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import Image from "next/image";
 import * as Yup from "yup";
-import Input from "../../components/input/Input";
+import { Input } from "@/components";
 import { Formik, Form } from "formik";
 
 const NewPostSchema = Yup.object({
