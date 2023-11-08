@@ -2,7 +2,7 @@ import styles from "./input.module.css";
 import { Field, useField } from "formik";
 import { IoMdAlert } from "react-icons/io";
 
-const Input = ({ name, touched = null, errors = null }) => {
+export default function Input({ name, touched = null, errors = null }) {
   return (
     <div className={styles.inputContainer}>
       <Field
@@ -26,7 +26,7 @@ const Input = ({ name, touched = null, errors = null }) => {
       {touched && errors ? <div className={styles.error}>{errors}</div> : null}
     </div>
   );
-};
+}
 const TextArea = ({ name, touched, errors }) => {
   const [field, meta] = useField(name);
   return (
@@ -54,4 +54,3 @@ const TextArea = ({ name, touched, errors }) => {
 };
 
 // export { Input, TextArea };
-export default Input;
