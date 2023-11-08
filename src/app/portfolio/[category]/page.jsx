@@ -6,16 +6,11 @@ import { BASE_API_URL } from "@/utils/constants";
 async function getData(category) {
   const apiUrl = `${BASE_API_URL}/api/works/${category}`;
 
-  try {
-    const res = await fetch(apiUrl, { next: { revalidate: 0 } });
-    if (!res.ok) {
-      return notFound();
-    }
-
-    return res.json();
-  } catch (e) {
-    console.error(`Error fetching data from ${apiUrl}: ${error}`);
+  const res = await fetch(apiUrl, { next: { revalidate: 0 } });
+  if (!res.ok) {
+    return notFound();
   }
+  return res.json();
 }
 
 export async function generateMetadata({ params }) {

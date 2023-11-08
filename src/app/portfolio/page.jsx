@@ -22,7 +22,6 @@ const Portfolio = async () => {
           return (
             <Link
               rel="preload"
-              as={`portfolio/${page}`}
               href={`${BASE_API_URL}/portfolio/${page}`}
               className={styles.item}
             >
