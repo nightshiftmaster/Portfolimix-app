@@ -27,7 +27,7 @@ const Contacts = () => {
       if (!formData.name) {
         throw new Error("Please fill the form !");
       }
-      const response = await fetch(`${BASE_API_URL}/api/email`, {
+      const response = await fetch(`/api/email`, {
         method: "POST",
         mode: "no-cors",
         headers: {
