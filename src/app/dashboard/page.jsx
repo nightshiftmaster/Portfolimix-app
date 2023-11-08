@@ -7,7 +7,7 @@ import { useRouter } from "next/navigation";
 import { useRef } from "react";
 import Image from "next/image";
 import * as Yup from "yup";
-import { Input, TextArea } from "@/components/input/Input";
+import Input from "@/components/input/Input";
 import { Formik, Form } from "formik";
 
 const NewPostSchema = Yup.object({
@@ -94,11 +94,11 @@ const Dashboard = () => {
                       />
                     );
                   })}
-                <TextArea
+                {/* <TextArea
                   name="content"
                   touched={touched.content}
                   errors={errors.content}
-                />
+                /> */}
                 <button className={styles.button}>Send</button>
               </Form>
             );

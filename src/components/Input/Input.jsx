@@ -53,4 +53,5 @@ const TextArea = ({ name, touched, errors }) => {
   );
 };
 
-export { Input, TextArea };
+// export { Input, TextArea };
+export default Input;
