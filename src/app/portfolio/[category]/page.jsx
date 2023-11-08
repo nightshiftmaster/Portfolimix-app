@@ -4,11 +4,10 @@ import { notFound } from "next/navigation";
 
 async function getData(category) {
   const res = await fetch(
-    `https://fullstack-next-js-lake.vercel.app/api/works/${category}`,
-    {
-      cache: "no-store",
-    }
+    `https://fullstack-next-js-lake.vercel.app/api/works/${category}`
   );
+
+  console.log(res);
 
   if (!res.ok) {
     return notFound();
