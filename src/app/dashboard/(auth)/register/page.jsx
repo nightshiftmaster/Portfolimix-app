@@ -6,7 +6,7 @@ import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { Input } from "../../../../components/input/Input";
+import { Input } from "@/components/input/Input";
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
