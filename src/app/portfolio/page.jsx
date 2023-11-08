@@ -1,6 +1,7 @@
 import React from "react";
 import styles from "./page.module.css";
 import Link from "next/link";
+import { BASE_API_URL } from "@/utils/constants";
 
 export const metadata = {
   title: "Portfolio",
@@ -10,6 +11,9 @@ export const metadata = {
 const pages = ["illustrations", "websites", "applications"];
 
 const Portfolio = async () => {
+  if (!BASE_API_URL) {
+    return null;
+  }
   return (
     <div className={styles.container}>
       <h1 className={styles.selectTitle}>Choose a galery</h1>
@@ -18,7 +22,7 @@ const Portfolio = async () => {
           return (
             <Link
               rel="preload"
-              href={`portfolio/${page}`}
+              href={`${BASE_API_URL}/portfolio/${page}`}
               className={styles.item}
             >
               <span className={styles.title}>{page}</span>
