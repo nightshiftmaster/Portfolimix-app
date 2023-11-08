@@ -1,10 +1,10 @@
 import React from "react";
 import styles from "./page.module.css";
 import { notFound } from "next/navigation";
-// import { BASE_API_URL } from "@/utils/constants";
+import { BASE_API_URL } from "@/utils/constants";
 
 const getData = async (category) => {
-  const apiUrl = `https://fullstack-next-js-lake.vercel.app/api/works/${category}`;
+  const apiUrl = `${BASE_API_URL}/api/works/${category}`;
 
   const res = await fetch(apiUrl, { next: { revalidate: 0 } });
   if (!res.ok) {
@@ -22,9 +22,9 @@ export async function generateMetadata({ params }) {
 }
 
 const Category = async ({ params }) => {
-  // if (!BASE_API_URL) {
-  //   return null;
-  // }
+  if (!BASE_API_URL) {
+    return null;
+  }
   // console.log(BASE_API_URL);
   const data = await getData(params.category);
   return (

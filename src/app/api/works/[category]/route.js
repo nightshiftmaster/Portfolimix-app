@@ -4,7 +4,7 @@ import Work from "@/models/Work";
 
 export const GET = async (request, { params }) => {
   const { category } = params;
-  await connect();
+  await connect(process.env.MONGO);
   try {
     const post = await Work.find({ category });
     return new NextResponse(JSON.stringify(post), { status: 200 });
