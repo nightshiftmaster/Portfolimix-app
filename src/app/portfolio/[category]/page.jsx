@@ -3,9 +3,12 @@ import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 
 async function getData(category) {
-  const res = await fetch(`http://localhost:3000/api/works/${category}`, {
-    cache: "no-store",
-  });
+  const res = await fetch(
+    `https://fullstack-next-js-lake.vercel.app/api/works/${category}`,
+    {
+      cache: "no-store",
+    }
+  );
 
   if (!res.ok) {
     return notFound();
