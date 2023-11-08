@@ -25,19 +25,17 @@ const Navbar = () => {
 
       <div className={styles.links}>
         <DarkModeToggle />
-        {links.map((link, i) => {
-          return (
-            <div className={styles.link} key={link.id}>
-              <Link
-                href={link.url}
-                className={`${active === link.id ? styles.active : ""}`}
-                onClick={() => setActive(link.id)}
-              >
-                {link.title}
-              </Link>
-            </div>
-          );
-        })}
+        {links.map((link, i) => (
+          <div className={styles.link} key={link.id}>
+            <Link
+              href={link.url}
+              className={`${active === link.id ? styles.active : ""}`}
+              onClick={() => setActive(link.id)}
+            >
+              {link.title}
+            </Link>
+          </div>
+        ))}
         <button className={styles.logout} onClick={signOut}>
           Logout
         </button>
