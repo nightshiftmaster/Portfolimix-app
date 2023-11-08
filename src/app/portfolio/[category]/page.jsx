@@ -4,7 +4,7 @@ import { notFound } from "next/navigation";
 import { BASE_API_URL } from "@/utils/constants";
 
 const getData = async (category) => {
-  const apiUrl = `${BASE_API_URL}/api/works/${category}`;
+  const apiUrl = `fullstack-next-js-lake.vercel.app/api/works/${category}`;
 
   const res = await fetch(apiUrl, { next: { revalidate: 0 } });
   if (!res.ok) {
