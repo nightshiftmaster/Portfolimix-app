@@ -1,7 +1,6 @@
 import React from "react";
 import styles from "./footer.module.css";
 import Image from "next/image";
-// import ReactLogo from "../../../public/1.png";
 
 const Footer = () => {
   return (
