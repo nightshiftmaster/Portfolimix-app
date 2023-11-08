@@ -7,10 +7,7 @@ async function getData(category) {
   const apiUrl = `${BASE_API_URL}/api/works/${category}`;
 
   try {
-    const res = await fetch(apiUrl, {
-      cache: "no-store",
-    });
-
+    const res = await fetch(apiUrl, { next: { revalidate: 0 } });
     if (!res.ok) {
       return notFound();
     }
@@ -30,6 +27,9 @@ export async function generateMetadata({ params }) {
 }
 
 const Category = async ({ params }) => {
+  if (!BASE_API_URL) {
+    return null;
+  }
   // console.log(BASE_API_URL);
   const data = await getData(params.category);
   return (
