@@ -16,7 +16,11 @@ const Portfolio = async () => {
       <div className={styles.items}>
         {pages.map((page) => {
           return (
-            <Link href={`portfolio/${page}`} className={styles.item}>
+            <Link
+              rel="preload"
+              href={`portfolio/${page}`}
+              className={styles.item}
+            >
               <span className={styles.title}>{page}</span>
             </Link>
           );

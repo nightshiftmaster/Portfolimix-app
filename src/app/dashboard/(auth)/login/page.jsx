@@ -66,7 +66,11 @@ const Login = () => {
               Google
             </button>
             <span className={styles.or}>- OR -</span>
-            <Link className={styles.link} href="/dashboard/register">
+            <Link
+              rel="preload"
+              className={styles.link}
+              href="/dashboard/register"
+            >
               Create new account
             </Link>
           </div>

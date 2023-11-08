@@ -31,6 +31,7 @@ const Blog = async () => {
         {data.map((post) => {
           return (
             <Link
+              rel="preload"
               href={`blog/${post._id}`}
               className={styles.item}
               key={post.id}
