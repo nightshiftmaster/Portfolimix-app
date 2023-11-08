@@ -2,7 +2,7 @@
 import React from "react";
 import Link from "next/link";
 import styles from "./navbar.module.css";
-import DarkModeToggle from "../DarkMode/DarkMode";
+import DarkModeToggle from "../darkMode/DarkMode";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
 
