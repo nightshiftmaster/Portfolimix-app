@@ -26,7 +26,11 @@ export const POST = async (request) => {
       console.log(error);
       console.log(info);
     });
-    return new NextResponse("Thank you for feedback!", { status: 200 });
+    const responce = new NextResponse("Thank you for feedback!", {
+      status: 200,
+    });
+    responce.headers.set("Access-Control-Allow-Origin", "*");
+    return responce;
   } catch (e) {
     return new NextResponse(
       "Email not sent. Check your credentials or try again later",
