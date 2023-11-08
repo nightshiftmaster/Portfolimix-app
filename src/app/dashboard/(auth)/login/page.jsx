@@ -7,7 +7,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
 import Link from "next/link";
 import { Formik, Form } from "formik";
-import Input from "@/components/input/Input";
+import Input from "../../../../components/input/Input";
 
 const Login = () => {
   const session = useSession();
