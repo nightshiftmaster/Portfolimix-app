@@ -7,6 +7,7 @@ import styles from "./page.module.css";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Input } from "@/components";
+import { BASE_API_URL } from "@/utils/constants";
 
 const SignupSchema = Yup.object().shape({
   name: Yup.string()
@@ -21,6 +22,10 @@ const Register = () => {
   const [err, setErr] = useState("");
   const router = useRouter();
 
+  if (!BASE_API_URL) {
+    return null;
+  }
+
   return (
     <Formik
       initialValues={{
@@ -31,7 +36,7 @@ const Register = () => {
       validationSchema={SignupSchema}
       onSubmit={async (values) => {
         try {
-          const res = await fetch("/api/auth/register", {
+          const res = await fetch(`${BASE_API_URL}/api/auth/register`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

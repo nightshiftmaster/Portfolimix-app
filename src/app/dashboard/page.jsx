@@ -9,6 +9,7 @@ import Image from "next/image";
 import * as Yup from "yup";
 import { Input } from "@/components";
 import { Formik, Form } from "formik";
+import { BASE_API_URL } from "@/utils/constants";
 
 const NewPostSchema = Yup.object({
   title: Yup.string().required(),
@@ -22,15 +23,21 @@ const Dashboard = () => {
   const router = useRouter();
   const formRef = useRef(null);
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  if (!BASE_API_URL) {
+    return null;
+  }
 
   const { data, mutate, error, isLoading } = useSWR(
-    `/api/posts?username=${session?.data?.user.name}`,
+    `${BASE_API_URL}/api/posts?username=${session?.data?.user.name}`,
     fetcher
   );
 
   const handleDelete = async (id) => {
+    if (!BASE_API_URL) {
+      return null;
+    }
     try {
-      await fetch(`http://localhost:3000/api/posts/${id}`, {
+      await fetch(`${BASE_API_URL}/api/posts/${id}`, {
         method: "DELETE",
       });
       mutate();
@@ -57,8 +64,11 @@ const Dashboard = () => {
           }}
           validationSchema={NewPostSchema}
           onSubmit={async ({ title, desc, img, content }) => {
+            if (!BASE_API_URL) {
+              return null;
+            }
             try {
-              await fetch("/api/posts", {
+              await fetch(`${BASE_API_URL}/api/posts`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
