@@ -21,10 +21,8 @@ const Portfolio = async () => {
         {pages.map((page) => {
           return (
             <Link
-              rel="preload"
               href={`${BASE_API_URL}/portfolio/${page}`}
               className={styles.item}
-              load="late"
             >
               <span className={styles.title}>{page}</span>
             </Link>
