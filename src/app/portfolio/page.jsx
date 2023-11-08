@@ -11,9 +11,9 @@ export const metadata = {
 const pages = ["illustrations", "websites", "applications"];
 
 const Portfolio = async () => {
-  if (!BASE_API_URL) {
-    return null;
-  }
+  // if (!BASE_API_URL) {
+  //   return null;
+  // }
   return (
     <div className={styles.container}>
       <h1 className={styles.selectTitle}>Choose a galery</h1>

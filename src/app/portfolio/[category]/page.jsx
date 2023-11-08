@@ -3,7 +3,7 @@ import styles from "./page.module.css";
 import { notFound } from "next/navigation";
 import { BASE_API_URL } from "@/utils/constants";
 
-async function getData(category) {
+const getData = async (category) => {
   const apiUrl = `${BASE_API_URL}/api/works/${category}`;
 
   const res = await fetch(apiUrl, { next: { revalidate: 0 } });
@@ -11,7 +11,7 @@ async function getData(category) {
     return notFound();
   }
   return res.json();
-}
+};
 
 export async function generateMetadata({ params }) {
   const post = await getData(params.category);

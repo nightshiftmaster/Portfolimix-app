@@ -13,9 +13,6 @@ const nextConfig = {
       "media.istockphoto.com",
     ],
   },
-  experimental: {
-    appDir: true,
-  },
 };
 
 module.exports = nextConfig;
