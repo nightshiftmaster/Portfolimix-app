@@ -4,15 +4,21 @@ import { notFound } from "next/navigation";
 import { BASE_API_URL } from "@/utils/constants";
 
 async function getData(category) {
-  const res = await fetch(`${BASE_API_URL}/api/works/${category}`, {
-    cache: "no-store",
-  });
+  const apiUrl = `${BASE_API_URL}/api/works/${category}`;
 
-  if (!res.ok) {
-    return notFound();
+  try {
+    const res = await fetch(apiUrl, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      return notFound();
+    }
+
+    return res.json();
+  } catch (e) {
+    console.error(`Error fetching data from ${apiUrl}: ${error}`);
   }
-
-  return res.json();
 }
 
 export async function generateMetadata({ params }) {
