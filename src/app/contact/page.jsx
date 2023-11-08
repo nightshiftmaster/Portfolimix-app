@@ -29,6 +29,7 @@ const Contacts = () => {
       }
       const response = await fetch(`${BASE_API_URL}/api/email`, {
         method: "POST",
+        mode: "no-cors",
         headers: {
           "Content-Type": "application/json",
         },
