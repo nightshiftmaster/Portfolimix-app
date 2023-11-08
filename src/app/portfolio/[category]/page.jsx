@@ -1,13 +1,12 @@
 import React from "react";
 import styles from "./page.module.css";
 import { notFound } from "next/navigation";
+import { BASE_API_URL } from "@/utils/constants";
 
 async function getData(category) {
-  const res = await fetch(
-    `https://fullstack-next-js-lake.vercel.app/api/works/${category}`
-  );
-
-  console.log(res);
+  const res = await fetch(`${BASE_API_URL}/api/works/${category}`, {
+    cache: "no-store",
+  });
 
   if (!res.ok) {
     return notFound();
@@ -25,6 +24,9 @@ export async function generateMetadata({ params }) {
 }
 
 const Category = async ({ params }) => {
+  if (!BASE_API_URL) {
+    return null;
+  }
   const data = await getData(params.category);
   return (
     <div className={styles.container}>
