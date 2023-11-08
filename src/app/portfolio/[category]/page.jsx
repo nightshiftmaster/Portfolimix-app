@@ -24,6 +24,7 @@ export async function generateMetadata({ params }) {
 }
 
 const Category = async ({ params }) => {
+  // console.log(BASE_API_URL);
   const data = await getData(params.category);
   return (
     <div className={styles.container}>

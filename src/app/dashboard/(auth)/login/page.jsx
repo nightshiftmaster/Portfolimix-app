@@ -61,16 +61,16 @@ const Login = () => {
               <button className={styles.button}>Login</button>
             </Form>
 
-            <button className={styles.button} onClick={() => signIn("google")}>
+            <button
+              type="submit"
+              className={styles.button}
+              onClick={() => signIn("google")}
+            >
               <img src="/google.png" alt="" className={styles.img} />
               Google
             </button>
             <span className={styles.or}>- OR -</span>
-            <Link
-              rel="preload"
-              className={styles.link}
-              href="/dashboard/register"
-            >
+            <Link className={styles.link} href="/dashboard/register">
               Create new account
             </Link>
           </div>
