@@ -33,7 +33,7 @@ const Blog = async () => {
       </div>
 
       <div className={styles.posts}>
-        {data.map((post) => {
+        {data?.map((post) => {
           return (
             <Link
               href={`blog/${post._id}`}
