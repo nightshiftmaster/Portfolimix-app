@@ -19,8 +19,8 @@ const Blog = async () => {
     return res.json();
   };
 
-  const data = await getData();
-  // const data = [{}, {}, {}];
+  // const data = await getData();
+  const data = [{}, {}, {}];
 
   return (
     <div className={styles.container}>
