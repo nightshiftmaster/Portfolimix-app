@@ -14,20 +14,18 @@ export async function generateMetadata({ params }) {
 
 const BlogPost = async ({ params }) => {
   const getData = async (id) => {
+    if (!BASE_API_URL) {
+      return null;
+    }
     const res = await fetch(`${BASE_API_URL}/api/posts/${id}`, {
       cache: "no-store",
     });
-
     if (!res.ok) {
       return notFound();
     }
-
     return res.json();
   };
 
-  if (!BASE_API_URL) {
-    return null;
-  }
   const data = await getData(params.id);
   return (
     <div className={styles.container}>

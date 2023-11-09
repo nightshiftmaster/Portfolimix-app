@@ -6,6 +6,9 @@ import { BASE_API_URL } from "@/utils/constants";
 
 const Blog = async () => {
   const getData = async () => {
+    if (!BASE_API_URL) {
+      return null;
+    }
     const res = await fetch(`${BASE_API_URL}/api/posts`, {
       cache: "no-store",
     });
@@ -15,10 +18,6 @@ const Blog = async () => {
     }
     return res.json();
   };
-
-  if (!BASE_API_URL) {
-    return null;
-  }
 
   const data = await getData();
   // const data = [{}, {}, {}];
