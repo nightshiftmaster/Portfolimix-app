@@ -2,24 +2,25 @@ import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
+import { BASE_API_URL } from "@/utils/constants";
 
 const Blog = async () => {
-  // const getData = async () => {
-  //   const res = await fetch(
-  //     "https://fullstack-next-js-lake.vercel.app/api/posts",
-  //     {
-  //       cache: "no-store",
-  //     }
-  //   );
+  const getData = async () => {
+    if (!BASE_API_URL) {
+      return null;
+    }
+    const res = await fetch(`${BASE_API_URL}/api/posts`, {
+      cache: "no-store",
+    });
 
-  //   if (!res.ok) {
-  //     throw new Error("failed to fetch data");
-  //   }
-  //   return res.json();
-  // };
+    if (!res.ok) {
+      throw new Error("failed to fetch data");
+    }
+    return res.json();
+  };
 
-  // const data = await getData();
-  const data = [{}, {}, {}];
+  const data = await getData();
+  // const data = [{}, {}, {}];
 
   return (
     <div className={styles.container}>
