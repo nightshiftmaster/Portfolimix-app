@@ -5,19 +5,15 @@ import { notFound } from "next/navigation";
 import { BASE_API_URL } from "@/utils/constants";
 
 const getData = async (id) => {
-  try {
-    const res = await fetch(`${BASE_API_URL}/api/posts/${id}`, {
-      cache: "no-store",
-    });
+  const res = await fetch(`${BASE_API_URL}/api/posts/${id}`, {
+    cache: "no-store",
+  });
 
-    if (!res.ok) {
-      return notFound();
-    }
-
-    return res.json();
-  } catch (e) {
-    console.log(e);
+  if (!res.ok) {
+    return notFound();
   }
+
+  return res.json();
 };
 
 export async function generateMetadata({ params }) {

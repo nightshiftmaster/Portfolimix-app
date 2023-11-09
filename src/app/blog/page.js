@@ -6,21 +6,17 @@ import { BASE_API_URL } from "@/utils/constants";
 
 const Blog = async () => {
   const getData = async () => {
-    try {
-      if (!BASE_API_URL) {
-        return null;
-      }
-      const res = await fetch(`${BASE_API_URL}/api/posts`, {
-        cache: "no-store",
-      });
-
-      if (!res.ok) {
-        throw new Error("failed to fetch data");
-      }
-      return res.json();
-    } catch (e) {
-      console.log(e);
+    if (!BASE_API_URL) {
+      return null;
     }
+    const res = await fetch(`${BASE_API_URL}/api/posts`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) {
+      throw new Error("failed to fetch data");
+    }
+    return res.json();
   };
 
   const data = await getData();
@@ -33,7 +29,7 @@ const Blog = async () => {
       </div>
 
       <div className={styles.posts}>
-        {data?.map((post) => {
+        {data.map((post) => {
           return (
             <Link
               href={`blog/${post._id}`}
