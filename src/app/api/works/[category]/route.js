@@ -1,6 +1,6 @@
 import { NextResponse } from "next/server";
-import connect from "../../../../utils/db";
-import Work from "../../../../models/Work";
+import connect from "@/utils/db";
+import Work from "@/models/Work";
 
 export const GET = async (request, { params }) => {
   const { category } = params;
