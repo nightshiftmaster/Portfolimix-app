@@ -5,7 +5,7 @@
   gap: 50px;
   align-items: center;
   margin-bottom: 100px;
-  font-size: 15px;
+  font-size: 14px;
 }
 
 .logout {
@@ -48,7 +48,7 @@
   display: flex;
   margin-right: 3px;
   padding: 5px;
-  text-transform: uppercase;
+  /* text-transform: uppercase; */
   transition: 0.5s;
   z-index: 1;
 }
