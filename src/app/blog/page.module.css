@@ -49,10 +49,18 @@
   margin-bottom: 50px;
 }
 
+.imageContainer:hover::after {
+  content: "";
+  display: block;
+  height: 300px;
+  width: 300px;
+  background: white;
+  opacity: 20%;
+  border-radius: 30px;
+}
 .imageContainer:hover {
-  opacity: 80%;
   outline: 1px solid white;
-  border-radius: 10%;
+  border-radius: 30px;
 }
 
 @media only screen and (max-width: 1400px) {

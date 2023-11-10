@@ -34,9 +34,16 @@
   background-size: cover !important;
 }
 
+.item:hover::after {
+  content: "";
+  display: block;
+  height: 300px;
+  width: 300px;
+  background: white;
+  opacity: 20%;
+  border-radius: 30px;
+}
 .item:hover {
-  opacity: 80%;
-
   outline: 1px solid white;
 }
 

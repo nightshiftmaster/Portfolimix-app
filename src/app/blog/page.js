@@ -4,21 +4,21 @@ import Image from "next/image";
 import Link from "next/link";
 import { BASE_API_URL } from "@/utils/constants";
 
+const getData = async () => {
+  const res = await fetch(`${BASE_API_URL}/api/posts`, {
+    cache: "no-store",
+  });
+
+  if (!res.ok) {
+    throw new Error("failed to fetch data");
+  }
+  return res.json();
+};
+
 const Blog = async () => {
-  const getData = async () => {
-    if (!BASE_API_URL) {
-      return null;
-    }
-    const res = await fetch(`${BASE_API_URL}/api/posts`, {
-      cache: "no-store",
-    });
-
-    if (!res.ok) {
-      throw new Error("failed to fetch data");
-    }
-    return res.json();
-  };
-
+  if (!BASE_API_URL) {
+    return null;
+  }
   const data = await getData();
 
   return (

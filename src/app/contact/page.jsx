@@ -13,6 +13,7 @@ import { BASE_API_URL } from "@/utils/constants";
 const Contacts = () => {
   const [sucess, setSucess] = useState("");
   const [errors, setError] = useState("");
+  const [disable, setDisable] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -24,12 +25,10 @@ const Contacts = () => {
     e.preventDefault();
 
     try {
+      setDisable(true);
       if (!formData.name) {
         throw new Error("Please fill the form !");
       }
-      // if (!BASE_API_URL) {
-      //   return null;
-      // }
       const response = await fetch(`${BASE_API_URL}/api/email`, {
         method: "POST",
         mode: "no-cors",
@@ -43,6 +42,7 @@ const Contacts = () => {
         setSucess("Email sent successfully!");
         formRef.current.reset();
         setError("");
+        setDisable(false);
       } else {
         setError("Email sending failed. Please try again later.");
       }
@@ -98,7 +98,7 @@ const Contacts = () => {
               setFormData({ ...formData, message: e.target.value })
             }
           />
-          <button type="submit" className={styles.button}>
+          <button disabled={disable} type="submit" className={styles.button}>
             Send Message
           </button>
         </form>
