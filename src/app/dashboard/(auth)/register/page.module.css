@@ -12,6 +12,22 @@
   text-align: center;
 }
 
+.avatar {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-items: center;
+  align-content: center;
+}
+
+.image {
+  /* filter: invert(60%); */
+  object-fit: contain;
+}
+
+.input {
+  margin-left: 60px;
+}
 .form {
   width: 300px;
   display: flex;

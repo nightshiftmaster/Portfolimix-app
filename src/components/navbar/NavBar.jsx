@@ -5,6 +5,11 @@ import styles from "./navbar.module.css";
 import DarkModeToggle from "../darkMode/DarkMode";
 import { signOut } from "next-auth/react";
 import { useState } from "react";
+import { useSession } from "next-auth/react";
+import { BASE_API_URL } from "@/utils/constants";
+import { notFound } from "next/navigation";
+import { useEffect } from "react";
+import useSWR from "swr";
 
 const links = [
   { id: 1, title: "Home", url: "/" },
@@ -17,6 +22,19 @@ const links = [
 
 const Navbar = () => {
   const [active, setActive] = useState("");
+  const session = useSession();
+  const [userData, setUserData] = useState(null);
+
+  const fetcher = (...args) => fetch(...args).then((res) => res.json());
+  if (!BASE_API_URL) {
+    return null;
+  }
+
+  const { data, mutate, error, isLoading } = useSWR(
+    `${BASE_API_URL}/api/user?email=${session?.data?.user?.email}`,
+    fetcher
+  );
+
   return (
     <div className={styles.container}>
       <Link href="/" className={styles.logo}>
@@ -36,7 +54,32 @@ const Navbar = () => {
             </Link>
           </div>
         ))}
-        <button className={styles.logout} onClick={signOut}>
+      </div>
+      <div className={styles.user}>
+        <Link
+          href="/dashboard"
+          className={styles.userContainer}
+          style={{
+            display: session.status === "authenticated" ? "flex" : "none",
+          }}
+        >
+          <img
+            className={styles.avatar}
+            src={
+              data && session.status === "authenticated" ? data[0].img : null
+            }
+            alt="avatar"
+          />
+
+          {data && session.status === "authenticated" ? data[0].name : null}
+        </Link>
+        <button
+          className={styles.logout}
+          style={{
+            display: session.status === "authenticated" ? "block" : "none",
+          }}
+          onClick={signOut}
+        >
           Logout
         </button>
       </div>

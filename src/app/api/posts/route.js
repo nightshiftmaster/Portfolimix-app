@@ -16,6 +16,7 @@ export const GET = async (request) => {
 
 export const POST = async (request) => {
   await connect();
+
   const body = await request.json();
   const newPost = new Post(body);
   try {

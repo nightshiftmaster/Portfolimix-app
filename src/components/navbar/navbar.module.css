@@ -2,10 +2,11 @@
   height: 5vmax;
   display: flex;
   justify-content: space-between;
-  gap: 50px;
   align-items: center;
+  gap: 70px;
   margin-bottom: 100px;
   font-size: 14px;
+  position: relative;
 }
 
 .logout {
@@ -28,6 +29,25 @@
   font-size: 30px;
 }
 
+.user {
+  display: flex;
+  gap: 15px;
+  align-items: center;
+  position: absolute;
+  right: -200px;
+}
+
+.userContainer {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.avatar {
+  border-radius: 50%;
+  height: 30px;
+}
+
 .logo:hover {
   transition: 0.5s;
   font-size: 40px;
@@ -39,7 +59,7 @@
   justify-content: center;
   margin-top: 5px;
   align-items: center;
-  gap: 20px;
+  gap: 10px;
   box-sizing: content-box;
 }
 
@@ -163,5 +183,11 @@
     width: 40vmax;
     flex-wrap: wrap;
     gap: 12px;
+  }
+
+  .user {
+    position: relative;
+    right: 0px;
+    bottom: 20px;
   }
 }

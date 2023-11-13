@@ -20,6 +20,7 @@ const SignupSchema = Yup.object().shape({
 
 const Register = () => {
   const [err, setErr] = useState("");
+  const [tumbnail, setTumbnail] = useState("");
   const router = useRouter();
 
   if (!BASE_API_URL) {
@@ -32,6 +33,7 @@ const Register = () => {
         name: "",
         email: "",
         password: "",
+        img: "",
       }}
       validationSchema={SignupSchema}
       onSubmit={async (values) => {
@@ -51,23 +53,50 @@ const Register = () => {
         }
       }}
     >
-      {({ values, errors, touched }) => {
+      {({ values, errors, touched, setFieldValue }) => {
         return (
           <div className={styles.container}>
             <div className={styles.titleContainer}>
               <h2>Create your account</h2>
             </div>
             <Form className={styles.form}>
-              {Object.keys(values).map((inputName, i) => {
-                return (
-                  <Input
-                    key={i}
-                    name={inputName}
-                    touched={touched[inputName]}
-                    errors={errors[inputName]}
-                  />
-                );
-              })}
+              <div class={styles.avatar}>
+                <img
+                  className={styles.image}
+                  alt="User Pic"
+                  src={tumbnail ? tumbnail : "/profile.png"}
+                  id="profile-image1"
+                  height="200"
+                />
+                <input
+                  className={styles.input}
+                  id="img"
+                  type="file"
+                  accept="image"
+                  name="img"
+                  onChange={(e) => {
+                    let reader = new FileReader();
+                    reader.readAsDataURL(e.target.files[0]);
+                    reader.onload = () => {
+                      setFieldValue("img", reader.result);
+                      setTumbnail(reader.result);
+                    };
+                  }}
+                />
+              </div>
+              {Object.keys(values)
+                .slice(0, 3)
+                .map((inputName, i) => {
+                  return (
+                    <Input
+                      key={i}
+                      name={inputName}
+                      touched={touched[inputName]}
+                      errors={errors[inputName]}
+                    />
+                  );
+                })}
+
               <button className={styles.button}>Register</button>
             </Form>
             {err && "Something went wrong"}

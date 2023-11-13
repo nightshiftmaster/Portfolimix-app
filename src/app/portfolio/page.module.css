@@ -81,6 +81,15 @@
     width: 70vw;
     height: 35vh;
   }
+  .item:hover::after {
+    content: "";
+    display: block;
+    width: 70vw;
+    height: 35vh;
+    background: white;
+    opacity: 20%;
+    border-radius: 30px;
+  }
   .selectTitle {
     margin-top: -110px;
     text-align: center;
