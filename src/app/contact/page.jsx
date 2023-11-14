@@ -5,6 +5,7 @@ import Image from "next/image";
 import { useState } from "react";
 import { useRef } from "react";
 import { BASE_API_URL } from "@/utils/constants";
+import Loader from "@/components/loader/Loader";
 // export const metadata = {
 //   title: "Contact Information",
 //   description: "This is contact page",
@@ -50,10 +51,6 @@ const Contacts = () => {
       setError(error.message);
     }
   };
-
-  if (!BASE_API_URL) {
-    return null;
-  }
 
   return (
     <div className={styles.container}>

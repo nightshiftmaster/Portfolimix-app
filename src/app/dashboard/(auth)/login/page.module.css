@@ -12,6 +12,17 @@
   text-align: center;
 }
 
+.loader {
+  height: 1px;
+  background: red;
+  display: flex;
+  position: relative;
+  /* background-color: rgb(255 255 255 / 0.3); */
+  backdrop-filter: blur(10px);
+  top: 20px;
+  z-index: 1;
+}
+
 @media only screen and (max-width: 1000px) {
   .container {
     margin-top: 160px;

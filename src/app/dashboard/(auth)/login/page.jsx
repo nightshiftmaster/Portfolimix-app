@@ -8,6 +8,7 @@ import { useState } from "react";
 import Link from "next/link";
 import { Formik, Form } from "formik";
 import { Input } from "@/components";
+import Loader from "@/components/loader/Loader";
 
 const Login = () => {
   const session = useSession();
@@ -25,7 +26,7 @@ const Login = () => {
     router.push("/dashboard");
   }
   if (session.status === "loading") {
-    return <div>...Loading</div>;
+    return <Loader name={"Login"} />;
   }
 
   return (
@@ -42,8 +43,11 @@ const Login = () => {
         }
       }}
     >
-      {({ values }) => {
-        return (
+      {({ values, isSubmitting }) => {
+        // console.log(isSubmitting);
+        return isSubmitting ? (
+          <Loader name={"Login"} />
+        ) : (
           <div className={styles.container}>
             <div className={styles.titleContainer}>
               <h1 className={styles.subtitle}>
@@ -55,20 +59,25 @@ const Login = () => {
             </div>
             <Form className={styles.form}>
               {Object.keys(values).map((inputName, i) => {
-                return <Input name={inputName} key={i} />;
+                return (
+                  <Input name={inputName} disabled={isSubmitting} key={i} />
+                );
               })}
 
-              <button className={styles.button}>Login</button>
+              <button type="submit" className={styles.button}>
+                Login
+              </button>
+              <button
+                type="submit"
+                className={styles.button}
+                onClick={() => signIn("google")}
+                disabled={isSubmitting}
+              >
+                <img src="/google.png" alt="" className={styles.img} />
+                Google
+              </button>
             </Form>
 
-            <button
-              type="submit"
-              className={styles.button}
-              onClick={() => signIn("google")}
-            >
-              <img src="/google.png" alt="" className={styles.img} />
-              Google
-            </button>
             <span className={styles.or}>- OR -</span>
             <Link className={styles.link} href="/dashboard/register">
               Create new account

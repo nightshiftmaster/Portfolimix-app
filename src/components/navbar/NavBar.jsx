@@ -7,8 +7,7 @@ import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { BASE_API_URL } from "@/utils/constants";
-import { notFound } from "next/navigation";
-import { useEffect } from "react";
+import Image from "next/image";
 import useSWR from "swr";
 
 const links = [
@@ -63,13 +62,23 @@ const Navbar = () => {
             display: session.status === "authenticated" ? "flex" : "none",
           }}
         >
-          <img
-            className={styles.avatar}
-            src={
-              data && session.status === "authenticated" ? data[0].img : null
-            }
-            alt="avatar"
-          />
+          <div className={styles.imgContainer}>
+            {/* <Image
+              fill={true}
+              src={
+                data && session.status === "authenticated" ? data[0].img : null
+              }
+              alt="avatar"
+              className={styles.avatar}
+            /> */}
+            <img
+              className={styles.avatar}
+              src={
+                data && session.status === "authenticated" ? data[0].img : null
+              }
+              alt="avatar"
+            />
+          </div>
 
           {data && session.status === "authenticated" ? data[0].name : null}
         </Link>

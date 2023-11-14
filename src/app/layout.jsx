@@ -4,6 +4,7 @@ import Footer from "../components/footer/Footer";
 import Navbar from "../components/navbar/NavBar";
 import ThemeProvider from "../context/ThemeContext";
 import AuthProvider from "../components/authProvider/AuthProvider";
+import { Toaster } from "react-hot-toast";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,7 +21,9 @@ export default function RootLayout({ children }) {
           <AuthProvider>
             <div className="container">
               <Navbar />
+              <Toaster position="top-center" />
               {children}
+
               <Footer />
             </div>
           </AuthProvider>

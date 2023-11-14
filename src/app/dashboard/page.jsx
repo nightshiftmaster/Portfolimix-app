@@ -10,7 +10,8 @@ import * as Yup from "yup";
 import { Input, TextArea } from "@/components";
 import { Formik, Form } from "formik";
 import { BASE_API_URL } from "@/utils/constants";
-import { set } from "mongoose";
+import Loader from "@/components/loader/Loader";
+import { toast } from "react-hot-toast";
 
 const NewPostSchema = Yup.object({
   title: Yup.string().required(),
@@ -24,6 +25,7 @@ const Dashboard = () => {
   const router = useRouter();
   const formRef = useRef(null);
   const [tumbnail, setTumbnail] = useState("");
+  const [sending, setSending] = useState(false);
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   if (!BASE_API_URL) {
     return null;
@@ -45,6 +47,8 @@ const Dashboard = () => {
       mutate();
     } catch (e) {
       console.log(e);
+    } finally {
+      toast.error("Post deleted", { duration: 5000 });
     }
   };
 
@@ -52,8 +56,12 @@ const Dashboard = () => {
     router.push("/dashboard/login");
   }
   if (session.status === "loading") {
-    return <div>loading...</div>;
+    return <Loader name={"Loading..."} />;
   }
+  if (sending) {
+    return <Loader name={"Uploading..."} />;
+  }
+
   if (session.status === "authenticated") {
     return (
       <div className={styles.container}>
@@ -64,7 +72,7 @@ const Dashboard = () => {
             img: "",
             content: "",
           }}
-          // validationSchema={NewPostSchema}
+          validationSchema={NewPostSchema}
           onSubmit={async ({ title, desc, img, content }) => {
             if (!BASE_API_URL) {
               return null;
@@ -88,10 +96,14 @@ const Dashboard = () => {
               setTumbnail("");
             } catch (e) {
               console.log(e.message);
+            } finally {
+              setSending(false);
+              toast.success("Post created successfully", { duration: 5000 });
             }
           }}
         >
-          {({ values, errors, touched, setFieldValue }) => {
+          {({ values, errors, touched, setFieldValue, isSubmitting }) => {
+            setSending(isSubmitting);
             return (
               <Form ref={formRef} className={styles.newpost}>
                 <h1 className={styles.title}>Add New Post</h1>
@@ -137,39 +149,42 @@ const Dashboard = () => {
                     )}
                   </div>
                 </div>
-                <button type="submit" className={styles.button}>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className={styles.button}
+                >
                   Send
                 </button>
               </Form>
             );
           }}
         </Formik>
+
         <div className={styles.posts}>
           <h1 className={styles.title}>My Posts</h1>
-          {isLoading
-            ? "...loading"
-            : data?.map((post) => {
-                return (
-                  <div className={styles.post} key={post._id}>
-                    <div className={styles.imgContainer}>
-                      <Image
-                        className={styles.img}
-                        width={200}
-                        height={100}
-                        alt="post image"
-                        src={post.img}
-                      />
-                      <span
-                        onClick={() => handleDelete(post._id)}
-                        className={styles.delete}
-                      >
-                        X
-                      </span>
-                    </div>
-                    <h2 className={styles.postTitle}>{post.title}</h2>
-                  </div>
-                );
-              })}
+          {data?.map((post) => {
+            return (
+              <div className={styles.post} key={post._id}>
+                <div className={styles.imgContainer}>
+                  <Image
+                    className={styles.img}
+                    width={200}
+                    height={100}
+                    alt="post image"
+                    src={post.img}
+                  />
+                  <span
+                    onClick={() => handleDelete(post._id)}
+                    className={styles.delete}
+                  >
+                    X
+                  </span>
+                </div>
+                <h2 className={styles.postTitle}>{post.title}</h2>
+              </div>
+            );
+          })}
         </div>
       </div>
     );
