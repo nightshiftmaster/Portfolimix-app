@@ -46,7 +46,9 @@ const Navbar = () => {
           <div className={styles.link} key={link.id}>
             <Link
               href={link.url}
-              className={`${active === link.id ? styles.active : ""}`}
+              className={`${
+                active === link.id ? styles.active : styles.regular
+              }`}
               onClick={() => setActive(link.id)}
             >
               {link.title}

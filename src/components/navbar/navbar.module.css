@@ -65,19 +65,20 @@
   position: relative;
   display: flex;
   justify-content: center;
-  margin-top: 5px;
   align-items: center;
-  gap: 10px;
+  gap: 15px;
   box-sizing: content-box;
 }
 
 .link {
+  /* background: red; */
   position: relative;
   display: flex;
   margin-right: 3px;
-  padding: 5px;
+  padding: 2px;
   /* text-transform: uppercase; */
   transition: 0.5s;
+  width: fit-content;
   z-index: 1;
 }
 .link:before {
