@@ -37,7 +37,7 @@ const Navbar = () => {
   return (
     <div className={styles.container}>
       <Link href="/" className={styles.logo}>
-        My website
+        Portfolimix
       </Link>
 
       <div className={styles.links}>
