@@ -36,4 +36,4 @@ Welcome to Portfolimix, a fullstack portfolio website template for presenting a 
 
 [Open Demo](https://fullstack-next-js-lake.vercel.app)
 
-![image](./public/demo.gif)
+<!-- ![image](./public/demo.gif) -->
