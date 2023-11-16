@@ -43,7 +43,7 @@ Welcome to Portfolimix, a fullstack portfolio website template for presenting a 
 1. Clone the repo
 
    ```shell
-    git clone https://github.com/nightshiftmaster/musix.git
+    git clone https://github.com/nightshiftmaster/fullstack-next.js.git
    ```
 
 2. Change directory to the project directory
