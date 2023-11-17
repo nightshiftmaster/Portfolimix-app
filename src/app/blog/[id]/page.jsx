@@ -28,7 +28,7 @@ const getData = async (id) => {
 const BlogPost = async ({ params }) => {
   const data = await getData(params.id);
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="blog-post">
       <div className={styles.head}>
         <div className={styles.articleHeader}>
           <h1 className={styles.title}>{data.title}</h1>

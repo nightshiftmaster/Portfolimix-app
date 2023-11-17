@@ -48,7 +48,7 @@ const Login = () => {
         return isSubmitting ? (
           <Loader name={"Login"} />
         ) : (
-          <div className={styles.container}>
+          <div className={styles.container} data-testid="login">
             <div className={styles.titleContainer}>
               <h1 className={styles.subtitle}>
                 {succes

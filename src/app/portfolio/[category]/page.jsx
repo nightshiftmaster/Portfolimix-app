@@ -28,7 +28,7 @@ const Category = async ({ params }) => {
   // console.log(BASE_API_URL);
   const data = await getData(params.category);
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="portfolio-category">
       <div className={styles.categoryTitleContainer}>
         <h1 className={styles.categoryTitle}>{params.category}</h1>
       </div>

@@ -22,7 +22,7 @@ const Blog = async () => {
   const data = await getData();
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="blog">
       <div className={styles.mainTitleContainer}>
         <h1 className={styles.mainTitle}>Blogs</h1>
       </div>

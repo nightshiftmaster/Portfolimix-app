@@ -5,7 +5,7 @@ import Button from "../../components/button/Button.jsx";
 
 const About = () => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="about">
       <h1 className={styles.mainTitle}>About Us</h1>
       <div className={styles.imgContainer}>
         <Image

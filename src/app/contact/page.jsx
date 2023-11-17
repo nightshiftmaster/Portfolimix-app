@@ -53,7 +53,7 @@ const Contacts = () => {
   };
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="contact">
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Let's Keep in Touch</h1>
       </div>

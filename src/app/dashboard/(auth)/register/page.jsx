@@ -55,7 +55,7 @@ const Register = () => {
     >
       {({ values, errors, touched, setFieldValue }) => {
         return (
-          <div className={styles.container}>
+          <div className={styles.container} data-testid="register">
             <div className={styles.titleContainer}>
               <h2>Create your account</h2>
             </div>

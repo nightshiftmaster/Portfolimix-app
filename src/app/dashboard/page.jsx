@@ -64,7 +64,7 @@ const Dashboard = () => {
 
   if (session.status === "authenticated") {
     return (
-      <div className={styles.container}>
+      <div className={styles.container} data-testid="dashboard">
         <Formik
           initialValues={{
             title: "",
