@@ -9,7 +9,7 @@ import "swiper/css/pagination";
 
 export default function Home() {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="home">
       <div className={styles.item}>
         <h1 className={styles.title}>
           Better design for your digital products.

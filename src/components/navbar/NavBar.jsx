@@ -7,7 +7,6 @@ import { signOut } from "next-auth/react";
 import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { BASE_API_URL } from "@/utils/constants";
-import Image from "next/image";
 import useSWR from "swr";
 
 const links = [
@@ -22,38 +21,35 @@ const links = [
 const Navbar = () => {
   const [active, setActive] = useState("");
   const session = useSession();
-  const [userData, setUserData] = useState(null);
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   if (!BASE_API_URL) {
     return null;
   }
 
-  const { data, mutate, error, isLoading } = useSWR(
+  const { data } = useSWR(
     `${BASE_API_URL}/api/user?email=${session?.data?.user?.email}`,
     fetcher
   );
 
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="navbar">
       <Link href="/" className={styles.logo}>
-        Portfolimix
+        PorfoliMix
       </Link>
 
       <div className={styles.links}>
         <DarkModeToggle />
         {links.map((link, i) => (
-          <div className={styles.link} key={link.id}>
-            <Link
-              href={link.url}
-              className={`${
-                active === link.id ? styles.active : styles.regular
-              }`}
-              onClick={() => setActive(link.id)}
-            >
+          <Link
+            href={link.url}
+            className={`${active === link.id ? styles.active : styles.regular}`}
+            onClick={() => setActive(link.id)}
+          >
+            <div className={styles.link} key={link.id}>
               {link.title}
-            </Link>
-          </div>
+            </div>
+          </Link>
         ))}
       </div>
       <div className={styles.user}>
@@ -65,14 +61,6 @@ const Navbar = () => {
           }}
         >
           <div className={styles.imgContainer}>
-            {/* <Image
-              fill={true}
-              src={
-                data && session.status === "authenticated" ? data[0].img : null
-              }
-              alt="avatar"
-              className={styles.avatar}
-            /> */}
             <img
               className={styles.avatar}
               src={

@@ -5,7 +5,7 @@ import Link from "next/link";
 
 const Footer = () => {
   return (
-    <div className={styles.container}>
+    <div className={styles.container} data-testid="footer">
       <div className={styles.date}>@2023 All rights reserved</div>
       <div className={styles.social}>
         <Link href="https://github.com/nightshiftmaster">
