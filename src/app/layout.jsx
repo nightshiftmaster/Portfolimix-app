@@ -5,7 +5,6 @@ import Navbar from "../components/navbar/NavBar";
 import ThemeProvider from "../context/ThemeContext";
 import AuthProvider from "../components/authProvider/AuthProvider";
 import { Toaster } from "react-hot-toast";
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata = {
@@ -13,7 +12,7 @@ export const metadata = {
   description: "This is my website",
 };
 
-export default function RootLayout({ children }) {
+export default async function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={inter.className}>

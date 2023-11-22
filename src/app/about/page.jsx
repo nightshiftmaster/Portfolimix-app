@@ -52,7 +52,7 @@ const About = () => {
             <br />
             <br /> - Mobile Apps
           </p>
-          <Button text="Contact us" url="contact" />
+          <Button text="Connect with us" url="contact" />
         </div>
       </div>
     </div>

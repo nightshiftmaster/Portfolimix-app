@@ -4,8 +4,8 @@ import styles from "./page.module.css";
 import Image from "next/image";
 import { useState } from "react";
 import { useRef } from "react";
-import { BASE_API_URL } from "@/utils/constants";
-import Loader from "@/components/loader/Loader";
+import { BASE_API_URL, PATH } from "@/utils/constants";
+
 // export const metadata = {
 //   title: "Contact Information",
 //   description: "This is contact page",
@@ -30,7 +30,7 @@ const Contacts = () => {
       if (!formData.name) {
         throw new Error("Please fill the form !");
       }
-      const response = await fetch(`${BASE_API_URL}/api/email`, {
+      const response = await fetch(`${BASE_API_URL}/${PATH}/email`, {
         method: "POST",
         mode: "no-cors",
         headers: {
@@ -39,10 +39,10 @@ const Contacts = () => {
         body: JSON.stringify(formData),
       });
 
-      if (response.ok) {
+      if (response) {
+        setError("");
         setSucess("Email sent successfully!");
         formRef.current.reset();
-        setError("");
         setDisable(false);
       } else {
         setError("Email sending failed. Please try again later.");
@@ -57,8 +57,8 @@ const Contacts = () => {
       <div className={styles.titleContainer}>
         <h1 className={styles.title}>Let's Keep in Touch</h1>
       </div>
-      <h3 className={styles.errorFeedback}>{errors ? errors : null}</h3>
       <h3 className={styles.sucessFeedback}>{sucess ? sucess : null}</h3>
+      <h3 className={styles.errorFeedback}>{errors ? errors : null}</h3>
 
       <div className={styles.content}>
         <div className={styles.imageContainer}>
@@ -69,7 +69,12 @@ const Contacts = () => {
             alt="contact image"
           />
         </div>
-        <form ref={formRef} className={styles.form} onSubmit={handleSubmit}>
+        <form
+          ref={formRef}
+          className={styles.form}
+          onSubmit={handleSubmit}
+          data-testid="form"
+        >
           <input
             type="text"
             placeholder="name"

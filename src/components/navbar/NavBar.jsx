@@ -42,13 +42,12 @@ const Navbar = () => {
         <DarkModeToggle />
         {links.map((link, i) => (
           <Link
+            key={link.id}
             href={link.url}
             className={`${active === link.id ? styles.active : styles.regular}`}
             onClick={() => setActive(link.id)}
           >
-            <div className={styles.link} key={link.id}>
-              {link.title}
-            </div>
+            <div className={styles.link}>{link.title}</div>
           </Link>
         ))}
       </div>

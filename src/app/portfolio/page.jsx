@@ -14,12 +14,13 @@ const Portfolio = async () => {
   return (
     <div className={styles.container}>
       <h1 className={styles.selectTitle}>Choose a galery</h1>
-      <div className={styles.items}>
-        {pages.map((page) => {
+      <div className={styles.items} data-testid="pages">
+        {pages.map((page, i) => {
           return (
             <Link
               href={`${BASE_API_URL}/portfolio/${page}`}
               className={styles.item}
+              key={i}
             >
               <span className={styles.title}>{page}</span>
             </Link>

@@ -2,10 +2,10 @@ import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import { BASE_API_URL } from "@/utils/constants";
+import { BASE_API_URL, PATH } from "@/utils/constants";
 
 const getData = async () => {
-  const res = await fetch(`${BASE_API_URL}/api/posts`, {
+  const res = await fetch(`${BASE_API_URL}/${PATH}/posts`, {
     cache: "no-store",
   });
 
@@ -32,6 +32,7 @@ const Blog = async () => {
           return (
             <Link
               href={`blog/${post._id}`}
+              data-testid={`post${post._id}`}
               className={styles.item}
               key={post.id}
             >

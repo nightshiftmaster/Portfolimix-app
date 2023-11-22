@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./page.module.css";
 import Image from "next/image";
 import { notFound } from "next/navigation";
-import { BASE_API_URL } from "@/utils/constants";
+import { BASE_API_URL, PATH } from "@/utils/constants";
 
 export async function generateMetadata({ params }) {
   const post = await getData(params.id);
@@ -16,7 +16,7 @@ const getData = async (id) => {
   if (!BASE_API_URL) {
     return null;
   }
-  const res = await fetch(`${BASE_API_URL}/api/posts/${id}`, {
+  const res = await fetch(`${BASE_API_URL}/${PATH}/posts/${id}`, {
     cache: "no-store",
   });
   if (!res.ok) {
@@ -29,7 +29,7 @@ const BlogPost = async ({ params }) => {
   const data = await getData(params.id);
   return (
     <div className={styles.container} data-testid="blog-post">
-      <div className={styles.head}>
+      <div className={styles.head} data-testid="head">
         <div className={styles.articleHeader}>
           <h1 className={styles.title}>{data.title}</h1>
           <div className={styles.desc}>{data.desc}</div>
@@ -47,7 +47,7 @@ const BlogPost = async ({ params }) => {
         </div>
       </div>
 
-      <div className={styles.body}>
+      <div className={styles.body} data-testid="body">
         <p className={styles.article}>{data.content}</p>
       </div>
     </div>
