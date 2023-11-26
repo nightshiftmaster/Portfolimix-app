@@ -9,7 +9,7 @@ import Image from "next/image";
 import * as Yup from "yup";
 import { Input, TextArea } from "@/components";
 import { Formik, Form } from "formik";
-import { BASE_API_URL } from "@/utils/constants";
+import { BASE_API_URL, PATH } from "@/utils/constants";
 import Loader from "@/components/loader/Loader";
 import { toast } from "react-hot-toast";
 
@@ -32,7 +32,7 @@ const Dashboard = () => {
   }
 
   const { data, mutate, error, isLoading } = useSWR(
-    `${BASE_API_URL}/api/posts?username=${session?.data?.user.name}`,
+    `${BASE_API_URL}/${PATH}/posts?username=${session?.data?.user.name}`,
     fetcher
   );
 
@@ -41,7 +41,7 @@ const Dashboard = () => {
       return null;
     }
     try {
-      await fetch(`${BASE_API_URL}/api/posts/${id}`, {
+      await fetch(`${BASE_API_URL}/${PATH}/posts/${id}`, {
         method: "DELETE",
       });
       mutate();
@@ -78,7 +78,7 @@ const Dashboard = () => {
               return null;
             }
             try {
-              await fetch(`${BASE_API_URL}/api/posts`, {
+              await fetch(`${BASE_API_URL}/${PATH}/posts`, {
                 method: "POST",
                 headers: {
                   "Content-Type": "application/json",
@@ -93,12 +93,12 @@ const Dashboard = () => {
               });
               mutate();
               formRef.current.reset();
-              setTumbnail("");
             } catch (e) {
               console.log(e.message);
             } finally {
               setSending(false);
               toast.success("Post created successfully", { duration: 5000 });
+              setTumbnail("");
             }
           }}
         >
@@ -128,6 +128,7 @@ const Dashboard = () => {
                   <h3 className={styles.uploadHeader}>Upload Image</h3>
                   <div className={styles.uploadImage}>
                     <input
+                      data-testid="upload"
                       className={styles.input}
                       id="img"
                       type="file"
@@ -165,16 +166,21 @@ const Dashboard = () => {
           <h1 className={styles.title}>My Posts</h1>
           {data?.map((post) => {
             return (
-              <div className={styles.post} key={post._id}>
+              <div
+                className={styles.post}
+                key={post._id}
+                data-testid="currpost"
+              >
                 <div className={styles.imgContainer}>
                   <Image
                     className={styles.img}
                     width={200}
                     height={100}
                     alt="post image"
-                    src={post.img}
+                    src={post.img ? post.img : null}
                   />
                   <span
+                    data-testid="delete-post"
                     onClick={() => handleDelete(post._id)}
                     className={styles.delete}
                   >

@@ -2,12 +2,7 @@
 const { test, expect } = require("@playwright/test");
 const { chromium } = require("playwright");
 import { defineConfig, devices } from "@playwright/test";
-
-// export default defineConfig({
-//   expect: {
-//     timeout: 10 * 1000,
-//   },
-// });
+import path from "path";
 
 let browser;
 let page;
@@ -142,19 +137,126 @@ test.describe("testing applicatrion", () => {
   });
 
   test("testing blog", async () => {
-    await page.goto("/blog");
-    await page.waitForSelector('[data-testid="blog"]');
-    await page.getByText("Blogs");
+    await Promise.all([
+      page.goto("/blog"),
+      page.waitForSelector('[data-testid="blog"]'),
+      page.getByText("Blogs"),
+    ]);
 
-    await page.getByTestId("post1").click();
-    await page.waitForSelector('[data-testid="blog-post"]');
-    await page.goto("/blog");
-    await page.getByTestId("post2").click();
-    await page.waitForSelector('[data-testid="blog-post"]');
-    await page.goto("/blog");
-    await page.getByTestId("post3").click();
-    await page.waitForSelector('[data-testid="blog-post"]');
+    await Promise.all([
+      page.getByTestId("post1").click(),
+      page.waitForSelector('[data-testid="blog-post"]'),
+    ]);
+
+    await Promise.all([
+      page.goto("/blog"),
+      page.getByTestId("post2").click(),
+      page.waitForSelector('[data-testid="blog-post"]'),
+    ]);
+
+    await Promise.all([
+      page.goto("/blog"),
+      page.getByTestId("post3").click(),
+      page.waitForSelector('[data-testid="blog-post"]'),
+    ]);
     await expect(page.getByTestId("head")).toBeVisible();
     await expect(page.getByTestId("body")).toBeVisible();
+  });
+  test("testing dashboard", async () => {
+    //unauthenticated
+    await page.goto("/dashboard");
+    await expect(page.getByTestId("dashboard")).not.toBeVisible();
+    await expect(
+      page.getByText("Please sign in to see the dashboard")
+    ).toBeVisible();
+    await expect(page.getByRole("button", { name: "Login" })).toBeVisible();
+    await expect(page.getByRole("button", { name: "Google" })).toBeVisible();
+    await expect(
+      page.getByRole("link", { name: "Create new account" })
+    ).toBeVisible();
+
+    //Sign in with Google
+    await page.getByRole("button", { name: "Google" }).click();
+    await expect(page.getByText("Sign in with Google")).toBeVisible();
+
+    //valid login
+    await page.goto("/dashboard/login");
+    await page.waitForURL("/dashboard/login");
+    const email = await page.getByPlaceholder("email");
+    const password = await page.getByPlaceholder("password");
+    await email.fill("nightshiftmaster@gmail.com");
+    await password.fill("v07081982");
+    // await expect(email).toHaveValue("nightshiftmaster@gmail.com");
+    // await expect(password).toHaveValue("v07081982");
+
+    await page.getByRole("button", { name: "Login" }).click();
+
+    await page.waitForURL("/dashboard");
+
+    await expect(page.getByTestId("dashboard")).toBeVisible();
+    await expect(page.getByTestId("user")).toBeVisible();
+    await expect(page.getByRole("button", { name: "Logout" })).toBeVisible();
+
+    //dashboard
+    await expect(page.getByText("Add New Post")).toBeVisible();
+    await expect(page.getByText("My Posts")).toBeVisible();
+
+    //input required errors
+    await page.getByPlaceholder("title").click();
+    await page.getByTestId("dashboard").click();
+
+    await expect(page.getByText("title is a required field")).toBeVisible();
+
+    await page.getByPlaceholder("desc").click();
+    await page.getByTestId("dashboard").click();
+
+    await expect(page.getByText("desc is a required field")).toBeVisible();
+
+    await page.getByPlaceholder("content").click();
+    await page.getByTestId("dashboard").click();
+
+    await expect(page.getByText("content is a required field")).toBeVisible();
+
+    //adding post
+    await page.goto("/dashboard");
+    await page.getByPlaceholder("title").fill("post");
+    await page.getByPlaceholder("desc").fill("description");
+    await page.getByPlaceholder("content").fill("post content");
+
+    await page
+      .getByTestId("upload")
+      .setInputFiles(path.join(__dirname, "apps2.jpg"));
+
+    await page.getByText("Send").click();
+
+    await expect(page.getByText("Post created successfully")).toBeVisible();
+    // await expect(page.getByText(/post/).first()).toBeVisible();
+
+    // delete post;
+    // await page.getByTestId("delete-post").first().click();
+    // await expect(page.getByText("Post deleted")).toBeVisible();
+    // await expect(page.getByText(/post/).nth(4)).not.toBeVisible();
+
+    //logout;
+    await page.getByRole("button", { name: "Logout" }).click();
+    await expect(page.getByTestId("user")).not.toBeVisible();
+    await expect(
+      page.getByRole("button", { name: "Logout" })
+    ).not.toBeVisible();
+
+    //create account
+    // await page.goto("/dashboard");
+    // await page.getByText("Create new account").click();
+    // await expect(page.getByTestId("register")).toBeVisible();
+    // await page
+    //   .getByTestId("avatar-upload")
+    //   .setInputFiles(path.join(__dirname, "apps2.jpg"));
+    // await page.getByPlaceholder("name").fill("stasik");
+    // await page.getByPlaceholder("email").fill("test4@gmail.com");
+    // await page.getByPlaceholder("password").fill("v07081982");
+
+    // await page.getByRole("button", { name: "Register" }).click();
+    // await expect(page.getByTestId("login")).toBeVisible();
+    // await expect(page.getByText("Welcome back")).toBeVisible();
   });
 });

@@ -8,6 +8,7 @@ import { useState } from "react";
 import { useSession } from "next-auth/react";
 import { BASE_API_URL } from "@/utils/constants";
 import useSWR from "swr";
+import { useRouter } from "next/navigation";
 
 const links = [
   { id: 1, title: "Home", url: "/" },
@@ -21,6 +22,7 @@ const links = [
 const Navbar = () => {
   const [active, setActive] = useState("");
   const session = useSession();
+  const router = useRouter();
 
   const fetcher = (...args) => fetch(...args).then((res) => res.json());
   if (!BASE_API_URL) {
@@ -54,6 +56,7 @@ const Navbar = () => {
       <div className={styles.user}>
         <Link
           href="/dashboard"
+          data-testid="user"
           className={styles.userContainer}
           style={{
             display: session.status === "authenticated" ? "flex" : "none",
@@ -76,7 +79,9 @@ const Navbar = () => {
           style={{
             display: session.status === "authenticated" ? "block" : "none",
           }}
-          onClick={signOut}
+          onClick={() => {
+            signOut({ callbackUrl: "/dashboard/login" });
+          }}
         >
           Logout
         </button>

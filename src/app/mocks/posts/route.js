@@ -1,14 +1,20 @@
 import { NextResponse } from "next/server";
 import Post from "@/models/Post";
 
-import { posts } from "./posts";
+import { state, initView } from "./posts";
 
 export const GET = async (request) => {
   const url = new URL(request.url);
   const username = url.searchParams.get("username");
+  const watchedPosts = initView(state, username);
+  if (username) {
+    watchedPosts.user.name = username;
+    return new NextResponse(JSON.stringify(watchedPosts.currPosts));
+  }
   try {
-    // const newPosts = posts.find(({ post }) => post.username === username);
-    return new NextResponse(JSON.stringify(posts), { status: 200 });
+    return new NextResponse(JSON.stringify(watchedPosts.allPosts), {
+      status: 200,
+    });
   } catch (error) {
     return new NextResponse("Database error", { status: 500 });
   }
@@ -16,9 +22,13 @@ export const GET = async (request) => {
 
 export const POST = async (request) => {
   const body = await request.json();
-  const newPost = new Post(body);
+  const post = { ...body, _id: Math.floor(Math.random(1) * 100).toString() };
+  const url = new URL(request.url);
+  const username = url.searchParams.get("username");
+  const watchedPosts = initView(state, username);
+  watchedPosts.allPosts.push(post);
+  watchedPosts.user.name = username;
   try {
-    await newPost.save();
     return new NextResponse("Post has been created", { status: 201 });
   } catch (error) {
     return new NextResponse("Database error", { status: 500 });

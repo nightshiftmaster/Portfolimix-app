@@ -70,6 +70,7 @@ const Register = () => {
                 />
                 <input
                   className={styles.input}
+                  data-testid="avatar-upload"
                   id="img"
                   type="file"
                   accept="image"

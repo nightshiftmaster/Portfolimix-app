@@ -26,7 +26,7 @@ const Login = () => {
     router.push("/dashboard");
   }
   if (session.status === "loading") {
-    return <Loader name={"Login"} />;
+    return <Loader name={"Loading"} />;
   }
 
   return (
